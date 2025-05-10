@@ -63,6 +63,14 @@ def register():
             "email": new_user.email.,
             "first_name": new_user.first_name,
             "last_name": new_user.last_name
-
         }
     })
+
+@auth.route("/logout", methods=["POST"])
+def logout():
+    if not current_user.is_authenticated:
+        return jsonify({"error": "User not authenticated"}), 200
+    
+    logout_user()
+
+    return jsonify({"message": "successfully logged out"}), 200
